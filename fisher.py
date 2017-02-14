@@ -1,5 +1,6 @@
 # eph 091204 created
 # eph 100713 fixed: "return 0.0, 0.0, 0.0" in single tests
+# eph 170214 using math.lgamma in Python 2.7+
 
 from math import log, exp
 
@@ -163,23 +164,33 @@ def mlog10Test2t(a, ab, ac, abcd):
 
 # ======================== Common ========================
 
-def _lnProbability (a, b, c, d):
-    return (_lnGamma(a+b)+_lnGamma(c+d)+_lnGamma(a+c)+_lnGamma(b+d)
-            -_lnGamma(a)-_lnGamma(b)-_lnGamma(c)-_lnGamma(d)-_lnGamma(a+b+c+d))
+try:
 
-_cache = {0: 0, 1: 0}
+    from math import lgamma  # Python 2.7+
 
-def _lnGamma (z):
-    if z in _cache: return _cache[z]
-    x = 0
-    x += 0.1659470187408462e-06 / (z + 8)
-    x += 0.9934937113930748e-05 / (z + 7)
-    x -= 0.1385710331296526 / (z + 6)
-    x += 12.50734324009056 / (z + 5)
-    x -= 176.6150291498386 / (z + 4)
-    x += 771.3234287757674 / (z + 3)
-    x -= 1259.139216722289 / (z + 2)
-    x += 676.5203681218835 / (z + 1)
-    x += 0.9999999999995183
-    _cache[z] = x = log(x) - 6.58106146679532777 - z + (z + 0.5) * log(z + 7.5)
-    return x
+    def _lnProbability (a, b, c, d):
+        return (lgamma(a+b+1)+lgamma(c+d+1)+lgamma(a+c+1)+lgamma(b+d+1)
+                -lgamma(a+1)-lgamma(b+1)-lgamma(c+1)-lgamma(d+1)-lgamma(a+b+c+d+1))
+
+except ImportError:
+
+    _cache = {0: 0, 1: 0}
+
+    def _lnGamma (z):
+        if z in _cache: return _cache[z]
+        x = 0
+        x += 0.1659470187408462e-06 / (z + 8)
+        x += 0.9934937113930748e-05 / (z + 7)
+        x -= 0.1385710331296526 / (z + 6)
+        x += 12.50734324009056 / (z + 5)
+        x -= 176.6150291498386 / (z + 4)
+        x += 771.3234287757674 / (z + 3)
+        x -= 1259.139216722289 / (z + 2)
+        x += 676.5203681218835 / (z + 1)
+        x += 0.9999999999995183
+        _cache[z] = x = log(x) - 6.58106146679532777 - z + (z + 0.5) * log(z + 7.5)
+
+    def _lnProbability (a, b, c, d):
+        return (_lnGamma(a+b)+_lnGamma(c+d)+_lnGamma(a+c)+_lnGamma(b+d)
+                -_lnGamma(a)-_lnGamma(b)-_lnGamma(c)-_lnGamma(d)-_lnGamma(a+b+c+d))
+        return x
