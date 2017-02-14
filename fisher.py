@@ -53,7 +53,7 @@ def mlnTest1(a, b, c, d):
     return mlnTest2(a, a+b, a+c, a+b+c+d)
 
 def mlnTest2(a, ab, ac, abcd):
-    if 0 > a or a > ab or a > ac or ab > abcd or ac > abcd: raise ValueError('invalid table')
+    if 0 > a or a > ab or a > ac or ab+ac > abcd+a: raise ValueError('invalid table')
     if abcd > MAXN: raise ValueError('math domain error')
     a_min = max(0, ab+ac-abcd)
     a_max = min(ab, ac)
@@ -101,7 +101,7 @@ def mlnTest1l(a, b, c, d):
     return mlnTest2l(a, a+b, a+c, a+b+c+d)
 
 def mlnTest2l(a, ab, ac, abcd):
-    if 0 > a or a > ab or a > ac or ab > abcd or ac > abcd: raise ValueError('invalid table')
+    if 0 > a or a > ab or a > ac or ab+ac > abcd+a: raise ValueError('invalid table')
     if abcd > MAXN: raise ValueError('math domain error')
     a_min = max(0, ab+ac-abcd)
     a_max = min(ab, ac)
@@ -136,7 +136,7 @@ def mlnTest1r(a, b, c, d):
     return mlnTest2r(a, a+b, a+c, a+b+c+d)
 
 def mlnTest2r(a, ab, ac, abcd):
-    if 0 > a or a > ab or a > ac or ab > abcd or ac > abcd: raise ValueError('invalid table')
+    if 0 > a or a > ab or a > ac or ab+ac > abcd+a: raise ValueError('invalid table')
     if abcd > MAXN: raise ValueError('math domain error')
     a_min = max(0, ab+ac-abcd)
     a_max = min(ab, ac)
@@ -171,7 +171,7 @@ def mlnTest1t(a, b, c, d):
     return mlnTest2t(a, a+b, a+c, a+b+c+d)
 
 def mlnTest2t(a, ab, ac, abcd):
-    if 0 > a or a > ab or a > ac or ab > abcd or ac > abcd: raise ValueError('invalid table')
+    if 0 > a or a > ab or a > ac or ab+ac > abcd+a: raise ValueError('invalid table')
     if abcd > MAXN: raise ValueError('math domain error')
     a_min = max(0, ab+ac-abcd)
     a_max = min(ab, ac)
