@@ -5,6 +5,7 @@
 from math import log, exp
 
 LN10 = log(10)
+NINF = float('-inf')
 
 # ======================== Full Test ========================
 
@@ -24,8 +25,8 @@ def mlnTest2(a, ab, ac, abcd):
     a_max = min(ab, ac)
     if a_min == a_max: return 0.0, 0.0, 0.0
     ps = []
-    lpmax = -1e1000
-    rpmax = -1e1000
+    lpmax = NINF
+    rpmax = NINF
     for i in range(a_min, a_max+1):
         p = _lnProbability(i, ab-i, ac-i, abcd-ab-ac+i)
         ps.append(p)
@@ -70,7 +71,7 @@ def mlnTest2l(a, ab, ac, abcd):
     a_max = min(ab, ac)
     if a_min == a_max: return 0.0
     ps = []
-    lpmax = -1e1000
+    lpmax = NINF
     for i in range(a_min, a_max+1):
         p = _lnProbability(i, ab-i, ac-i, abcd-ab-ac+i)
         ps.append(p)
@@ -105,7 +106,7 @@ def mlnTest2r(a, ab, ac, abcd):
     a_max = min(ab, ac)
     if a_min == a_max: return 0.0
     ps = []
-    rpmax = -1e1000
+    rpmax = NINF
     for i in range(a_min, a_max+1):
         p = _lnProbability(i, ab-i, ac-i, abcd-ab-ac+i)
         ps.append(p)
@@ -140,8 +141,8 @@ def mlnTest2t(a, ab, ac, abcd):
     a_max = min(ab, ac)
     if a_min == a_max: return 0.0
     ps = []
-    lpmax = -1e1000
-    rpmax = -1e1000
+    lpmax = NINF
+    rpmax = NINF
     for i in range(a_min, a_max+1):
         p = _lnProbability(i, ab-i, ac-i, abcd-ab-ac+i)
         ps.append(p)
