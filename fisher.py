@@ -74,7 +74,10 @@ def mlnTest2(a, ab, ac, abcd):
         if i < a: sl += exp(pl - pi)
         if i > a: sr += exp(pr - pi)
         if pi >= pt: st += exp(pt - pi)
-    return max(0., pl-p0-log(sl)), max(0., pr-p0-log(sr)), max(0., pt-p0-log(st))
+    if pl < pr:
+        return -log(1.-max(0., exp(p0-pa)*(sr-1.))), max(0., pa-p0-log(sr)), max(0., pa-p0-log(st))
+    else:
+        return max(0., pa-p0-log(sl)), -log(1.-max(0., exp(p0-pa)*(sl-1.))), max(0., pa-p0-log(st))
 
 def mlog10Test1(a, b, c, d):
     result = mlnTest2(a, a+b, a+c, a+b+c+d)
@@ -104,12 +107,15 @@ def mlnTest2l(a, ab, ac, abcd):
     if a_min == a_max: return 0.
     i = int(round(ab * ac / abcd))
     p0 = lgamma(ab+1) + lgamma(ac+1) + lgamma(abcd-ac+1) + lgamma(abcd-ab+1) - lgamma(abcd+1)
-    pi = lgamma(i+1) + lgamma(ab-i+1) + lgamma(ac-i+1) + lgamma(abcd-ab-ac+i+1)
     pa = lgamma(a+1) + lgamma(ab-a+1) + lgamma(ac-a+1) + lgamma(abcd-ab-ac+a+1)
-    pl = pi if i < a else pa
-    return max(0., pl - p0 - log(exp(pl - pa) + sum(
-        exp(pl - lgamma(i+1) - lgamma(ab-i+1) - lgamma(ac-i+1) - lgamma(abcd-ab-ac+i+1))
-        for i in range(a_min, a) )))
+    if i < a:
+        return -log(1. - max(0., exp(p0 - pa) * sum(
+            exp(pa - lgamma(i+1) - lgamma(ab-i+1) - lgamma(ac-i+1) - lgamma(abcd-ab-ac+i+1))
+            for i in range(a+1, a_max+1) )))
+    else:
+        return max(0., pa - p0 - log(1. + sum(
+            exp(pa - lgamma(i+1) - lgamma(ab-i+1) - lgamma(ac-i+1) - lgamma(abcd-ab-ac+i+1))
+            for i in range(a_min, a) )))
 
 def mlog10Test1l(a, b, c, d):
     return mlnTest2l(a, a+b, a+c, a+b+c+d)/LN10
@@ -137,12 +143,15 @@ def mlnTest2r(a, ab, ac, abcd):
     if a_min == a_max: return 0.
     i = int(round(ab * ac / abcd))
     p0 = lgamma(ab+1) + lgamma(ac+1) + lgamma(abcd-ac+1) + lgamma(abcd-ab+1) - lgamma(abcd+1)
-    pi = lgamma(i+1) + lgamma(ab-i+1) + lgamma(ac-i+1) + lgamma(abcd-ab-ac+i+1)
     pa = lgamma(a+1) + lgamma(ab-a+1) + lgamma(ac-a+1) + lgamma(abcd-ab-ac+a+1)
-    pr = pi if i > a else pa
-    return max(0., pr - p0 - log(exp(pr - pa) + sum(
-        exp(pr - lgamma(i+1) - lgamma(ab-i+1) - lgamma(ac-i+1) - lgamma(abcd-ab-ac+i+1))
-        for i in range(a+1, a_max+1) )))
+    if i > a:
+        return -log(1. - max(0., exp(p0 - pa) * sum(
+            exp(pa - lgamma(i+1) - lgamma(ab-i+1) - lgamma(ac-i+1) - lgamma(abcd-ab-ac+i+1))
+            for i in range(a_min, a) )))
+    else:
+        return max(0., pa - p0 - log(1. + sum(
+            exp(pa - lgamma(i+1) - lgamma(ab-i+1) - lgamma(ac-i+1) - lgamma(abcd-ab-ac+i+1))
+            for i in range(a+1, a_max+1) )))
 
 def mlog10Test1r(a, b, c, d):
     return mlnTest2r(a, a+b, a+c, a+b+c+d)/LN10
