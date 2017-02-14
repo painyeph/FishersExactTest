@@ -53,8 +53,8 @@ def mlnTest1(a, b, c, d):
     return mlnTest2(a, a+b, a+c, a+b+c+d)
 
 def mlnTest2(a, ab, ac, abcd):
-    if 0 > a or a > ab or a > ac or ab+ac > abcd+a: raise ValueError('invalid table')
-    if abcd > MAXN: raise ValueError('math domain error')
+    if 0 > a or a > ab or a > ac or ab+ac > abcd+a: raise ValueError('invalid contingency table')
+    if abcd > MAXN: raise OverflowError('the grand total of contingency table is too large')
     a_min = max(0, ab+ac-abcd)
     a_max = min(ab, ac)
     if a_min == a_max: return 0., 0., 0.
@@ -101,8 +101,8 @@ def mlnTest1l(a, b, c, d):
     return mlnTest2l(a, a+b, a+c, a+b+c+d)
 
 def mlnTest2l(a, ab, ac, abcd):
-    if 0 > a or a > ab or a > ac or ab+ac > abcd+a: raise ValueError('invalid table')
-    if abcd > MAXN: raise ValueError('math domain error')
+    if 0 > a or a > ab or a > ac or ab+ac > abcd+a: raise ValueError('invalid contingency table')
+    if abcd > MAXN: raise OverflowError('the grand total of contingency table is too large')
     a_min = max(0, ab+ac-abcd)
     a_max = min(ab, ac)
     if a_min == a_max: return 0.
@@ -136,8 +136,8 @@ def mlnTest1r(a, b, c, d):
     return mlnTest2r(a, a+b, a+c, a+b+c+d)
 
 def mlnTest2r(a, ab, ac, abcd):
-    if 0 > a or a > ab or a > ac or ab+ac > abcd+a: raise ValueError('invalid table')
-    if abcd > MAXN: raise ValueError('math domain error')
+    if 0 > a or a > ab or a > ac or ab+ac > abcd+a: raise ValueError('invalid contingency table')
+    if abcd > MAXN: raise OverflowError('the grand total of contingency table is too large')
     a_min = max(0, ab+ac-abcd)
     a_max = min(ab, ac)
     if a_min == a_max: return 0.
@@ -171,8 +171,8 @@ def mlnTest1t(a, b, c, d):
     return mlnTest2t(a, a+b, a+c, a+b+c+d)
 
 def mlnTest2t(a, ab, ac, abcd):
-    if 0 > a or a > ab or a > ac or ab+ac > abcd+a: raise ValueError('invalid table')
-    if abcd > MAXN: raise ValueError('math domain error')
+    if 0 > a or a > ab or a > ac or ab+ac > abcd+a: raise ValueError('invalid contingency table')
+    if abcd > MAXN: raise OverflowError('the grand total of contingency table is too large')
     a_min = max(0, ab+ac-abcd)
     a_max = min(ab, ac)
     if a_min == a_max: return 0.

@@ -1,11 +1,11 @@
 ## Functions
 
- returns      | p-value | -log( p-value ) | -log10( p-value )
---------------|----------|-------------------|------------------
+              | p-value                                                | -log( p-value )                                              | -log10( p-value )
+--------------|--------------------------------------------------------|--------------------------------------------------------------|--------------------------------------------------------------------
  left-tailed  | `test1l(a, b, c, d)` or `test2l(a, a+b, a+c, a+b+c+d)` | `mlnTest1l(a, b, c, d)` or `mlnTest2l(a, a+b, a+c, a+b+c+d)` | `mlog10Test1l(a, b, c, d)` or `mlog10Test2l(a, a+b, a+c, a+b+c+d)`
  right-tailed | `test1r(a, b, c, d)` or `test2r(a, a+b, a+c, a+b+c+d)` | `mlnTest1r(a, b, c, d)` or `mlnTest2r(a, a+b, a+c, a+b+c+d)` | `mlog10Test1r(a, b, c, d)` or `mlog10Test2r(a, a+b, a+c, a+b+c+d)`
  two-sided    | `test1t(a, b, c, d)` or `test2t(a, a+b, a+c, a+b+c+d)` | `mlnTest1t(a, b, c, d)` or `mlnTest2t(a, a+b, a+c, a+b+c+d)` | `mlog10Test1t(a, b, c, d)` or `mlog10Test2t(a, a+b, a+c, a+b+c+d)`
- triple       | `test1(a, b, c, d)` or `test2(a, a+b, a+c, a+b+c+d)` | `mlnTest1(a, b, c, d)` or `mlnTest2(a, a+b, a+c, a+b+c+d)` | `mlog10Test1(a, b, c, d)` or `mlog10Test2(a, a+b, a+c, a+b+c+d)`
+ triple       | `test1(a, b, c, d)` or `test2(a, a+b, a+c, a+b+c+d)`   | `mlnTest1(a, b, c, d)` or `mlnTest2(a, a+b, a+c, a+b+c+d)`   | `mlog10Test1(a, b, c, d)` or `mlog10Test2(a, a+b, a+c, a+b+c+d)`
 
 ## Comparison with scipy.stats.fisher_exact
 
@@ -62,5 +62,5 @@ ValueError: math domain error
 >>> fisher.mlog10Test1t(100, 1, 10, 1000000000000000)
 Traceback (most recent call last):
   File "<stdin>", line 1, in <module>
-ValueError: math domain error
+OverflowError: the grand total of contingency table is too large
 ```
