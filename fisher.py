@@ -25,8 +25,18 @@ except ImportError:
         _cache[z] = x = log(x) - 5.58106146679532777 - z + (z-0.5)*log(z+6.5)
         return x
 
+
+def _maxn():
+    l = 1; n = 2; h = float('inf')
+    while l < n:
+        if abs(lgamma(n+1) - lgamma(n) - log(n)) >= 1: h = n
+        else: l = n
+        n = (l + min(h, l * 3)) // 2
+    return n
+
 LN10 = log(10)
 NINF = float('-inf')
+MAXN = _maxn()
 
 
 # ======================== Full Test ========================
@@ -43,7 +53,8 @@ def mlnTest1(a, b, c, d):
     return mlnTest2(a, a+b, a+c, a+b+c+d)
 
 def mlnTest2(a, ab, ac, abcd):
-    if 0 > a or a > ab or a > ac or ab > abcd or ac > abcd: raise ValueError
+    if 0 > a or a > ab or a > ac or ab > abcd or ac > abcd: raise ValueError('invalid table')
+    if abcd > MAXN: raise ValueError('math domain error')
     a_min = max(0, ab+ac-abcd)
     a_max = min(ab, ac)
     if a_min == a_max: return 0., 0., 0.
@@ -86,7 +97,8 @@ def mlnTest1l(a, b, c, d):
     return mlnTest2l(a, a+b, a+c, a+b+c+d)
 
 def mlnTest2l(a, ab, ac, abcd):
-    if 0 > a or a > ab or a > ac or ab > abcd or ac > abcd: raise ValueError
+    if 0 > a or a > ab or a > ac or ab > abcd or ac > abcd: raise ValueError('invalid table')
+    if abcd > MAXN: raise ValueError('math domain error')
     a_min = max(0, ab+ac-abcd)
     a_max = min(ab, ac)
     if a_min == a_max: return 0.
@@ -118,7 +130,8 @@ def mlnTest1r(a, b, c, d):
     return mlnTest2r(a, a+b, a+c, a+b+c+d)
 
 def mlnTest2r(a, ab, ac, abcd):
-    if 0 > a or a > ab or a > ac or ab > abcd or ac > abcd: raise ValueError
+    if 0 > a or a > ab or a > ac or ab > abcd or ac > abcd: raise ValueError('invalid table')
+    if abcd > MAXN: raise ValueError('math domain error')
     a_min = max(0, ab+ac-abcd)
     a_max = min(ab, ac)
     if a_min == a_max: return 0.
@@ -150,7 +163,8 @@ def mlnTest1t(a, b, c, d):
     return mlnTest2t(a, a+b, a+c, a+b+c+d)
 
 def mlnTest2t(a, ab, ac, abcd):
-    if 0 > a or a > ab or a > ac or ab > abcd or ac > abcd: raise ValueError
+    if 0 > a or a > ab or a > ac or ab > abcd or ac > abcd: raise ValueError('invalid table')
+    if abcd > MAXN: raise ValueError('math domain error')
     a_min = max(0, ab+ac-abcd)
     a_max = min(ab, ac)
     if a_min == a_max: return 0.
