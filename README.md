@@ -9,7 +9,7 @@
 
 ## Speed
 
-Comparison of `stats.fisher_exact([[a, b], [c, d]], *)` and `fisher.test1*(a, b, c, d)`. See `benchmark.py`.
+Comparison of `scipy.stats.fisher_exact([[a, b], [c, d]], *)` and `fisher.test1*(a, b, c, d)`. See `benchmark.py`.
 
       a |      b |      c |      d |    test type |     scipy |    fisher
 -------:|-------:|-------:|-------:|-------------:|----------:|----------:
