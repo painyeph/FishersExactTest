@@ -1,25 +1,32 @@
 ## Functions
 
-              | p-value                                                | -log( p-value )                                              | -log10( p-value )
+ test type    | p-value                                                | -log( p-value )                                              | -log10( p-value )
 --------------|--------------------------------------------------------|--------------------------------------------------------------|--------------------------------------------------------------------
  left-tailed  | `test1l(a, b, c, d)` or `test2l(a, a+b, a+c, a+b+c+d)` | `mlnTest1l(a, b, c, d)` or `mlnTest2l(a, a+b, a+c, a+b+c+d)` | `mlog10Test1l(a, b, c, d)` or `mlog10Test2l(a, a+b, a+c, a+b+c+d)`
  right-tailed | `test1r(a, b, c, d)` or `test2r(a, a+b, a+c, a+b+c+d)` | `mlnTest1r(a, b, c, d)` or `mlnTest2r(a, a+b, a+c, a+b+c+d)` | `mlog10Test1r(a, b, c, d)` or `mlog10Test2r(a, a+b, a+c, a+b+c+d)`
- two-sided    | `test1t(a, b, c, d)` or `test2t(a, a+b, a+c, a+b+c+d)` | `mlnTest1t(a, b, c, d)` or `mlnTest2t(a, a+b, a+c, a+b+c+d)` | `mlog10Test1t(a, b, c, d)` or `mlog10Test2t(a, a+b, a+c, a+b+c+d)`
- triple       | `test1(a, b, c, d)` or `test2(a, a+b, a+c, a+b+c+d)`   | `mlnTest1(a, b, c, d)` or `mlnTest2(a, a+b, a+c, a+b+c+d)`   | `mlog10Test1(a, b, c, d)` or `mlog10Test2(a, a+b, a+c, a+b+c+d)`
+ two-tailed   | `test1t(a, b, c, d)` or `test2t(a, a+b, a+c, a+b+c+d)` | `mlnTest1t(a, b, c, d)` or `mlnTest2t(a, a+b, a+c, a+b+c+d)` | `mlog10Test1t(a, b, c, d)` or `mlog10Test2t(a, a+b, a+c, a+b+c+d)`
+ all          | `test1(a, b, c, d)` or `test2(a, a+b, a+c, a+b+c+d)`   | `mlnTest1(a, b, c, d)` or `mlnTest2(a, a+b, a+c, a+b+c+d)`   | `mlog10Test1(a, b, c, d)` or `mlog10Test2(a, a+b, a+c, a+b+c+d)`
 
-## Comparison with scipy.stats.fisher_exact
+## Speed
 
-### Speed
+Comparison of `stats.fisher_exact([[a, b], [c, d]], *)` and `fisher.test1*(a, b, c, d)`. See `benchmark.py`.
 
-```bash
-$ python -m timeit "from scipy import stats" "stats.fisher_exact([[8, 2], [1, 5]])[1]"
-1000 loops, best of 3: 931 usec per loop
+      a |      b |      c |      d |    test type |     scipy |    fisher
+-------:|-------:|-------:|-------:|-------------:|----------:|----------:
+      8 |      2 |      1 |      5 |  left-tailed |    150 us |      3 us
+      8 |      2 |      1 |      5 | right-tailed |    150 us |      3 us
+      8 |      2 |      1 |      5 |   two-tailed |    938 us |      6 us
+    100 |   1000 |  10000 | 100000 |  left-tailed |    155 us |     55 us
+    100 |   1000 |  10000 | 100000 | right-tailed |    243 us |     75 us
+    100 |   1000 |  10000 | 100000 |   two-tailed |    187 us |    128 us
+  10000 |    100 |   1000 | 100000 |  left-tailed |    950 us |      8 us
+  10000 |    100 |   1000 | 100000 | right-tailed |    159 us |      6 us
+  10000 |    100 |   1000 | 100000 |   two-tailed |  71292 us |    680 us
+  10000 |  10000 |  10000 |  10000 |  left-tailed |    950 us |    369 us
+  10000 |  10000 |  10000 |  10000 | right-tailed |    955 us |    376 us
+  10000 |  10000 |  10000 |  10000 |   two-tailed |    193 us |    732 us
 
-$ python -m timeit "import fisher" "fisher.test1t(8, 2, 1, 5)"
-100000 loops, best of 3: 4.99 usec per loop
-```
-
-### Precision
+## Precision
 
 ```python
 >>> from scipy import stats
