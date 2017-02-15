@@ -62,7 +62,7 @@ def mlnTest2(a, ab, ac, abcd):
     pa = lgamma(a+1) + lgamma(ab-a+1) + lgamma(ac-a+1) + lgamma(abcd-ab-ac+a+1)
     sl = sr = 0.
     if ab * ac < a * abcd:
-        for i in range(a-1, a_min-1, -1):
+        for i in range(min(a-1, int(round(ab * ac / abcd))), a_min-1, -1):
             pi = lgamma(i+1) + lgamma(ab-i+1) + lgamma(ac-i+1) + lgamma(abcd-ab-ac+i+1)
             if pi < pa: continue
             sl_new = sl + exp(pa - pi)
@@ -80,7 +80,7 @@ def mlnTest2(a, ab, ac, abcd):
             sl_new = sl + exp(pa - pi)
             if sl_new == sl: break
             sl = sl_new
-        for i in range(a+1, a_max+1):
+        for i in range(max(a+1, int(round(ab * ac / abcd))), a_max+1):
             pi = lgamma(i+1) + lgamma(ab-i+1) + lgamma(ac-i+1) + lgamma(abcd-ab-ac+i+1)
             if pi < pa: continue
             sr_new = sr + exp(pa - pi)
@@ -200,7 +200,7 @@ def mlnTest2t(a, ab, ac, abcd):
     pa = lgamma(a+1) + lgamma(ab-a+1) + lgamma(ac-a+1) + lgamma(abcd-ab-ac+a+1)
     st = 1.
     if ab * ac < a * abcd:
-        for i in range(a-1, a_min-1, -1):
+        for i in range(min(a-1, int(round(ab * ac / abcd))), a_min-1, -1):
             pi = lgamma(i+1) + lgamma(ab-i+1) + lgamma(ac-i+1) + lgamma(abcd-ab-ac+i+1)
             if pi < pa: continue
             st_new = st + exp(pa - pi)
@@ -217,7 +217,7 @@ def mlnTest2t(a, ab, ac, abcd):
             st_new = st + exp(pa - pi)
             if st_new == st: break
             st = st_new
-        for i in range(a+1, a_max+1):
+        for i in range(max(a+1, int(round(ab * ac / abcd))), a_max+1):
             pi = lgamma(i+1) + lgamma(ab-i+1) + lgamma(ac-i+1) + lgamma(abcd-ab-ac+i+1)
             if pi < pa: continue
             st_new = st + exp(pa - pi)
