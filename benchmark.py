@@ -17,9 +17,9 @@ if __name__ == '__main__':
 
     setup = 'from __main__ import stats, fisher'
 
-    print(' {:>6s} | {:>6s} | {:>6s} | {:>6s} | {:>12s} | {:>9s} | {:>9s}'
+    print('| {:>6s} | {:>6s} | {:>6s} | {:>6s} | {:>12s} | {:>9s} | {:>9s} |'
           .format('a', 'b', 'c', 'd', 'test type', 'scipy', 'fisher'))
-    print('-------:|-------:|-------:|-------:|-------------:|----------:|----------:')
+    print('|-------:|-------:|-------:|-------:|-------------:|----------:|----------:|')
     for a, b, c, d, test_type in [
             (8, 2, 1, 5, 'left-tailed'),
             (8, 2, 1, 5, 'right-tailed'),
@@ -34,7 +34,7 @@ if __name__ == '__main__':
             (10000, 10000, 10000, 10000, 'right-tailed'),
             (10000, 10000, 10000, 10000, 'two-tailed'),
             ]:
-        print(' {:>6d} | {:>6d} | {:>6d} | {:>6d} | {:>12s} | {:>6.0f} us | {:>6.0f} us'.format(
+        print('| {:>6d} | {:>6d} | {:>6d} | {:>6d} | {:>12s} | {:>6.0f} us | {:>6.0f} us |'.format(
               a, b, c, d, test_type,
               timeit('stats.fisher_exact([[{}, {}], [{}, {}]], "{}")'
                      .format(a, b, c, d, test_mapping[test_type]),
